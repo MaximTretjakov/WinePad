@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-6">
+      <form id="myForm"
+            method="GET"
+            data-country="{{ request.GET.country }}"
+            data-region="{{ request.GET.region }}"
+            data-administrative_area="{{ request.GET.administrative_area }}"
+            data-quality_mark="{{ request.GET.quality_mark }}"
+      >
+        <div class="form-group">
+          <label for="countrySelect">Country</label>
+          {% render_field form.country value="" title="Country" class="form-control" %}
+        </div>
+
+        <div class="form-group">
+          <label for="regionSelect">Region</label>
+          {% render_field form.region title="Region" class="form-control" %}
+        </div>
+
+        <div class="form-group">
+          <label for="areaSelect">Administrative Area</label>
+          {% render_field form.administrative_area title="Administrative Area" class="form-control" %}
+        </div>
+
+        <div class="form-group">
+          <label for="markSelect">Quality Mark</label>
+          {% render_field form.quality_mark title="Quality Mark" class="form-control" %}
+        </div>
+
+        <div class="form-group">
+          <button id="btnSubmit" class="btn btn-success" type="submit">submit</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>
+
+<hr>
+
+{% endblock content %}
+
+{% block js %}
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+
+function getData(){
+  return document.getElementById("myForm");
+}
+
+function setFormElement(data, controlId){
+  switch(controlId){
+    case "id_country":
+      let country = document.getElementById(controlId);
+      country.value = data.dataset.country;
+      break
+
+    case "id_region":
+      let region = document.getElementById(controlId);
+      region.value = data.dataset.region;
+      break
+
+    case "id_administrative_area":
+      let area = document.getElementById(controlId);
+      area.value = data.dataset.administrative_area;
+      break
+
+    case "id_quality_mark":
+      let mark = document.getElementById(controlId);
+      mark.value = data.dataset.quality_mark;
+      break
+
+    default:
+      break
+  }
+}
+
+let data = getData();
+setFormElement(data, "id_country");
+setFormElement(data, "id_region");
+setFormElement(data, "id_administrative_area");
+setFormElement(data, "id_quality_mark");
+
+});
+
+</script>
+{% endblock js %}
